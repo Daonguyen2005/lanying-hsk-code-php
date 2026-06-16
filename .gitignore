@@ -1,0 +1,23 @@
+.meta-panel-trigger
+meta.bat
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# C#
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# PHP / General
+vendor/
+node_modules/
+.DS_Store

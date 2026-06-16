@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ Gia sư - Lanying HSK</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=2">
+</head>
+<body>
+    <div class="bg-blobs"></div>
+    <div class="toast-custom" id="toast"></div>
+
+    <!-- Glass Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light glass-nav sticky-top py-3 animate-fade-up">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="tutor_index.php">
+                <span class="logo-icon">&#20013;</span>
+                <h1 class="m-0 fs-4 fw-bold text-gradient">Lanying Gia sư</h1>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mt-3 mt-lg-0" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-semibold">
+                    <li class="nav-item"><a class="nav-link px-3" href="tutor_index.php">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 active text-primary-custom" href="tutor_profile.php">Hồ sơ cá nhân</a></li>
+                </ul>
+                <div class="d-flex flex-column flex-lg-row gap-2 mt-3 mt-lg-0 align-items-center" id="navActions">
+                    <!-- Render via JS -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 animate-fade-up delay-100">
+                <div class="profile-card p-4 p-md-5">
+                    <div class="text-center mb-5">
+                        <div class="tutor-avatar mx-auto mb-3" style="width: 80px; height: 80px; font-size: 2rem;" id="avatar-preview">T</div>
+                        <h2 class="fw-bold text-dark m-0">Cập nhật Hồ sơ</h2>
+                        <p class="text-secondary mt-2">Hồ sơ chi tiết giúp AI giới thiệu bạn tới đúng học viên hơn</p>
+                    </div>
+
+                    <form id="profile-form" onsubmit="saveProfile(event)">
+                        <!-- Hourly Rate -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark ms-2">Mức phí yêu cầu (VNĐ/giờ) <span class="text-danger">*</span></label>
+                            <div class="position-relative">
+                                <span class="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fw-bold">₫</span>
+                                <input type="number" class="form-control-glass w-100 ps-5" id="hourly_rate" placeholder="Ví dụ: 150000" required>
+                            </div>
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark ms-2">Giới thiệu bản thân (Bio)</label>
+                            <textarea class="form-control-glass w-100" id="bio" rows="4" placeholder="Giới thiệu kinh nghiệm giảng dạy, phương pháp của bạn..."></textarea>
+                        </div>
+
+                        <!-- Teaching Levels -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark mb-3 ms-2">Bạn có thể dạy HSK cấp độ nào? <span class="text-danger">*</span></label>
+                            <div class="row g-3">
+                                <div class="col-6 col-sm-4">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-levels m-0" type="checkbox" value="1" id="hsk1">
+                                        <span class="form-check-label ms-2">HSK 1</span>
+                                    </label>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-levels m-0" type="checkbox" value="2" id="hsk2">
+                                        <span class="form-check-label ms-2">HSK 2</span>
+                                    </label>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-levels m-0" type="checkbox" value="3" id="hsk3">
+                                        <span class="form-check-label ms-2">HSK 3</span>
+                                    </label>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-levels m-0" type="checkbox" value="4" id="hsk4">
+                                        <span class="form-check-label ms-2">HSK 4</span>
+                                    </label>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-levels m-0" type="checkbox" value="5" id="hsk5">
+                                        <span class="form-check-label ms-2">HSK 5</span>
+                                    </label>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-levels m-0" type="checkbox" value="6" id="hsk6">
+                                        <span class="form-check-label ms-2">HSK 6</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specialization -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark ms-2">Thế mạnh giảng dạy (Tùy chọn)</label>
+                            <input type="text" class="form-control-glass w-100" id="specialization" placeholder="Ví dụ: Luyện giao tiếp, Chữa phát âm, Trẻ em...">
+                        </div>
+
+                        <!-- Teaching Modes -->
+                        <div class="mb-5">
+                            <label class="form-label fw-bold text-dark mb-3 ms-2">Hình thức dạy</label>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-modes m-0" type="checkbox" value="online" id="mode-online">
+                                        <span class="form-check-label ms-2">Online (Zoom/Meet)</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-check-custom w-100">
+                                        <input class="form-check-input teaching-modes m-0" type="checkbox" value="offline" id="mode-offline">
+                                        <span class="form-check-label ms-2">Offline (Gặp trực tiếp)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary-custom w-100 fs-5 mt-2 shadow-glow" type="submit" id="submitBtn">Lưu Hồ Sơ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('lanying_token');
+            localStorage.removeItem('lanying_user');
+            window.location.href = 'login.php';
+        }
+
+        async function checkAuth() {
+            const user = JSON.parse(localStorage.getItem('lanying_user') || 'null');
+            const token = localStorage.getItem('lanying_token');
+            if (!user || !token || user.role !== 'tutor') {
+                window.location.href = 'login.php';
+                return;
+            }
+            document.getElementById('navActions').innerHTML = `
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fw-bold text-dark">${user.name}</span>
+                    <button class="btn btn-light rounded-circle p-2 shadow-sm text-danger" onclick="logout()" title="Đăng xuất">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    </button>
+                </div>
+            `;
+            document.getElementById('avatar-preview').textContent = user.name.charAt(0).toUpperCase();
+        }
+
+        async function loadProfile() {
+            try {
+                const data = await TutorAPI.getMyProfile();
+                window.current_hsk_level = data.hsk_level || 6;
+                
+                if (data.hourly_rate) document.getElementById('hourly_rate').value = data.hourly_rate;
+                if (data.bio) document.getElementById('bio').value = data.bio;
+                if (data.specialization) document.getElementById('specialization').value = data.specialization;
+
+                if (data.teaching_levels) {
+                    const levels = data.teaching_levels.split(',').map(s => s.trim());
+                    document.querySelectorAll('.teaching-levels').forEach(cb => {
+                        if (levels.includes(cb.value)) cb.checked = true;
+                    });
+                }
+                
+                if (data.teaching_modes) {
+                    const modes = data.teaching_modes.split(',').map(s => s.trim());
+                    document.querySelectorAll('.teaching-modes').forEach(cb => {
+                        if (modes.includes(cb.value)) cb.checked = true;
+                    });
+                }
+            } catch (err) {
+                showToast(`Chưa thể tải dữ liệu cũ: ${err.message}`);
+            }
+        }
+
+        async function saveProfile(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.textContent = 'Đang lưu...';
+            btn.disabled = true;
+
+            const hourly_rate = parseInt(document.getElementById('hourly_rate').value);
+            const bio = document.getElementById('bio').value;
+            const specialization = document.getElementById('specialization').value;
+
+            const levels = Array.from(document.querySelectorAll('.teaching-levels:checked')).map(cb => cb.value).join(',');
+            
+            if (!levels) {
+                showToast('Vui lòng chọn ít nhất 1 cấp độ HSK bạn có thể dạy!');
+                btn.textContent = 'Lưu Hồ Sơ';
+                btn.disabled = false;
+                return;
+            }
+
+            try {
+                await TutorAPI.updateMyProfile({
+                    hsk_level: window.current_hsk_level || 6,
+                    teaching_levels: levels,
+                    hourly_rate: hourly_rate,
+                    specialization: specialization,
+                    bio: bio
+                });
+                showToast('Lưu hồ sơ thành công!');
+                setTimeout(() => window.location.reload(), 1500);
+            } catch (err) {
+                showToast(`Lỗi lưu hồ sơ: ${err.message}`);
+            } finally {
+                btn.textContent = 'Lưu Hồ Sơ';
+                btn.disabled = false;
+            }
+        }
+
+        checkAuth();
+        loadProfile();
+    </script>
+</body>
+</html>
