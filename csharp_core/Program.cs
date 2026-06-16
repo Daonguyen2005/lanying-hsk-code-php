@@ -52,4 +52,12 @@ using (var scope = app.Services.CreateScope())
     } catch { } // Bỏ qua nếu cột đã tồn tại
 }
 
+app.MapGet("/api/debugdb", (AppDbContext db) => {
+    var dbPath = System.IO.Path.GetFullPath("lanyinghsk.db");
+    var size = new System.IO.FileInfo(dbPath).Exists ? new System.IO.FileInfo(dbPath).Length : -1;
+    var count = db.Tutors.Count();
+    var outDir = System.IO.Directory.GetCurrentDirectory();
+    return new { dbPath, size, count, outDir };
+});
+
 app.Run();
