@@ -4,7 +4,12 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 // Simple Router
-$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'home';
+$url = isset($_GET['url']) ? $_GET['url'] : '';
+if (empty($url)) {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $url = ltrim($path, '/');
+}
+$url = empty($url) ? 'home' : rtrim($url, '/');
 $url = filter_var($url, FILTER_SANITIZE_URL);
 $url = explode('/', $url);
 
