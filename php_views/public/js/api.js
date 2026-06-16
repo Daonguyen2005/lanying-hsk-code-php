@@ -3,7 +3,7 @@
 // Backend URL: http://localhost:8000
 // =============================================
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://code-c-production.up.railway.app";
 
 function getToken() {
     return localStorage.getItem("lanying_token");
@@ -78,7 +78,7 @@ const SurveyAPI = {
 const ChatAPI = {
     send: async (message, history = []) => {
         const tutors = await TutorAPI.getAll();
-        const res = await fetch("http://localhost:8001/chat", {
+        const res = await fetch("https://chatbot-production-eec8.up.railway.app/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: message, tutors_data: tutors, history: history })

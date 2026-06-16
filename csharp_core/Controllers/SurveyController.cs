@@ -81,7 +81,7 @@ namespace LanyingAPI.Controllers
             };
 
             var content = new StringContent(JsonSerializer.Serialize(aiReq), Encoding.UTF8, "application/json");
-            var res = await _http.PostAsync("http://localhost:8001/recommend", content);
+            var res = await _http.PostAsync("https://chatbot-production-eec8.up.railway.app/recommend", content);
             
             if (!res.IsSuccessStatusCode) return StatusCode(500, new { detail = "Lỗi từ AI Service" });
             var result = await res.Content.ReadAsStringAsync();
